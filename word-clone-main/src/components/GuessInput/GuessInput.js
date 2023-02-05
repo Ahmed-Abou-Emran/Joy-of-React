@@ -1,12 +1,12 @@
 import React from "react";
-
+import { WORD_LENGTH } from "../../constants";
 function GuessInput({ setGuesses }) {
   const [guess, setGuess] = React.useState("");
 
   const onSubmitHandler = (event) => {
     event.preventDefault();
     if (guess.length !== 5) {
-      window.alert("Guess must be 5 letters long.");
+      window.alert(`Guess must be ${WORD_LENGTH} letters long.`);
       return;
     }
     setGuesses((prevGuesses) => [...prevGuesses, guess]);
@@ -22,8 +22,8 @@ function GuessInput({ setGuesses }) {
         value={guess}
         id="guess-input"
         type="text"
-        minLength={5}
-        maxLength={5}
+        minLength={WORD_LENGTH}
+        maxLength={WORD_LENGTH}
       />
     </form>
   );
