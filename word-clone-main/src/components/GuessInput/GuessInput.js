@@ -1,6 +1,7 @@
 import React from "react";
 import { WORD_LENGTH } from "../../constants";
-function GuessInput({ setGuesses }) {
+
+function GuessInput({ setGuesses, setStatus, statuses, answer }) {
   const [guess, setGuess] = React.useState("");
 
   const onSubmitHandler = (event) => {
@@ -22,6 +23,8 @@ function GuessInput({ setGuesses }) {
         value={guess}
         id="guess-input"
         type="text"
+        pattern={`[a-zA-Z]{${WORD_LENGTH}}`}
+        title={`${WORD_LENGTH} letters word.`}
         minLength={WORD_LENGTH}
         maxLength={WORD_LENGTH}
       />

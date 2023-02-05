@@ -12,10 +12,16 @@ console.info({ answer });
 
 function Game() {
   const [guesses, setGuesses] = React.useState([]);
+  const [statuses, setStatus] = React.useState("playing");
   return (
     <>
-      <PreviousGuesses guesses={guesses} />
-      <GuessInput setGuesses={setGuesses} />
+      <PreviousGuesses answer={answer} statuses={statuses} guesses={guesses} />
+      <GuessInput
+        answer={answer}
+        setStatus={setStatus}
+        statuses={statuses}
+        setGuesses={setGuesses}
+      />
     </>
   );
 }
