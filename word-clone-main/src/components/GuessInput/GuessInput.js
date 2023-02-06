@@ -1,7 +1,8 @@
 import React from "react";
 import { WORD_LENGTH } from "../../constants";
+import { checkGuess } from "../../game-helpers";
 
-function GuessInput({ setGuesses, setStatus, statuses, answer }) {
+function GuessInput({ setGuesses, guesses, isSucess, setIsSucess, answer }) {
   const [guess, setGuess] = React.useState("");
 
   const onSubmitHandler = (event) => {
@@ -12,6 +13,11 @@ function GuessInput({ setGuesses, setStatus, statuses, answer }) {
     }
     setGuesses((prevGuesses) => [...prevGuesses, guess]);
     console.log({ guess });
+    const guessResult = checkGuess(guess, answer).every(
+      (element) => element.status === "correct"
+    );
+    console.log(guessResult);
+    if (guessResult) setIsSucess(true);
     setGuess("");
   };
   return (
@@ -19,7 +25,10 @@ function GuessInput({ setGuesses, setStatus, statuses, answer }) {
       <label htmlFor="guess-input">Enter guess:</label>
       <input
         required
-        onChange={(event) => setGuess(event.target.value.toUpperCase())}
+        onChange={(event) => {
+          const value = event.target.value.toUpperCase();
+          setGuess(value);
+        }}
         value={guess}
         id="guess-input"
         type="text"
@@ -27,6 +36,7 @@ function GuessInput({ setGuesses, setStatus, statuses, answer }) {
         title={`${WORD_LENGTH} letters word.`}
         minLength={WORD_LENGTH}
         maxLength={WORD_LENGTH}
+        disabled={isSucess || guesses.length === 6}
       />
     </form>
   );
