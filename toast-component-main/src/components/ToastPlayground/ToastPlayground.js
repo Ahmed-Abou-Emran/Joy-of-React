@@ -4,6 +4,7 @@ import Button from "../Button";
 import ToastShelf from "../ToastShelf";
 import styles from "./ToastPlayground.module.css";
 
+import { ToastContext } from "../ToastProvider";
 const VARIANT_OPTIONS = ["notice", "warning", "success", "error"];
 
 function ToastPlayground() {
@@ -11,6 +12,7 @@ function ToastPlayground() {
   const [variantSelected, setVariantSelected] = React.useState(
     VARIANT_OPTIONS[0]
   );
+  const { toasts, addToastHandler } = React.useContext(ToastContext);
 
   const onMessageChange = (event) => {
     setMessage(event.target.value);
@@ -20,18 +22,13 @@ function ToastPlayground() {
     setVariantSelected(event.target.value);
   };
 
-  const [toasts, setToasts] = React.useState([]);
-
-  const addToastHandler = (e) => {
+  const onSubmitHandler = (e) => {
     e.preventDefault();
-    setToasts((prev) => [
-      ...prev,
-      { id: crypto.randomUUID(), message, variantSelected },
-    ]);
+    addToastHandler(message, variantSelected);
+
     setMessage("");
     setVariantSelected(VARIANT_OPTIONS[0]);
   };
-
   return (
     <div className={styles.wrapper}>
       <header>
@@ -39,8 +36,8 @@ function ToastPlayground() {
         <h1>Toast Playground</h1>
       </header>
 
-      <ToastShelf toasts={toasts} setToasts={setToasts} />
-      <form onSubmit={addToastHandler}>
+      <ToastShelf />
+      <form onSubmit={onSubmitHandler}>
         <div className={styles.controlsWrapper}>
           <div className={styles.row}>
             <label
