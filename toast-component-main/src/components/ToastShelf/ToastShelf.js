@@ -17,11 +17,16 @@ function ToastShelf() {
       window.addEventListener("keydown", handleKeyDown);
     };
 
-    return () => window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
   }, [clearToastMessage]);
 
   return (
-    <ol className={styles.wrapper}>
+    <ol
+      className={styles.wrapper}
+      role="region"
+      aria-live="assertive"
+      aria-label="Notification"
+    >
       {toasts.map(({ variantSelected, message, id }, index) => (
         <li key={index} className={styles.toastWrapper}>
           <Toast
