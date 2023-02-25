@@ -5,20 +5,7 @@ import styles from "./ToastShelf.module.css";
 
 import { ToastContext } from "../ToastProvider";
 function ToastShelf() {
-  const { toasts, filterToasts, clearToastMessage } =
-    React.useContext(ToastContext);
-
-  React.useEffect(() => {
-    const handleKeyDown = (event) => {
-      if (event.key === "Escape") {
-        clearToastMessage();
-      }
-
-      window.addEventListener("keydown", handleKeyDown);
-    };
-
-    return () => window.removeEventListener("keydown", handleKeyDown);
-  }, [clearToastMessage]);
+  const { toasts, filterToasts } = React.useContext(ToastContext);
 
   return (
     <ol
