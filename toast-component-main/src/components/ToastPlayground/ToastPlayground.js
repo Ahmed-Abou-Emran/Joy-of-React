@@ -9,12 +9,28 @@ const VARIANT_OPTIONS = ["notice", "warning", "success", "error"];
 
 function ToastPlayground() {
   const [message, setMessage] = React.useState("");
+  const [isDisabled, setIsDisabled] = React.useState(true);
+
+  // disable button if message is empty
+  React.useEffect(() => {
+    if (message === "") {
+      setIsDisabled(true);
+    } else {
+      setIsDisabled(false);
+    }
+  }, [message]);
+
   const [variantSelected, setVariantSelected] = React.useState(
     VARIANT_OPTIONS[0]
   );
-  const { toasts, addToastHandler } = React.useContext(ToastContext);
+  const { addToastHandler } = React.useContext(ToastContext);
 
   const onMessageChange = (event) => {
+    if (message === "") {
+      setIsDisabled(true);
+    } else {
+      setIsDisabled(false);
+    }
     setMessage(event.target.value);
   };
 
@@ -25,9 +41,9 @@ function ToastPlayground() {
   const onSubmitHandler = (e) => {
     e.preventDefault();
     addToastHandler(message, variantSelected);
-
     setMessage("");
     setVariantSelected(VARIANT_OPTIONS[0]);
+    setIsDisabled(true);
   };
   return (
     <div className={styles.wrapper}>
@@ -64,7 +80,7 @@ function ToastPlayground() {
           <div className={styles.row}>
             <div className={styles.label} />
             <div className={`${styles.inputWrapper} ${styles.radioWrapper}`}>
-              <Button>Pop Toast!</Button>
+              <Button disabled={isDisabled}>Pop Toast!</Button>
             </div>
           </div>
         </div>
