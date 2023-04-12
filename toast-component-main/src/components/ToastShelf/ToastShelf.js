@@ -1,5 +1,5 @@
 import React from "react";
-
+import {createPortal} from "react-dom";
 import Toast from "../Toast";
 import styles from "./ToastShelf.module.css";
 
@@ -7,7 +7,7 @@ import { ToastContext } from "../ToastProvider";
 function ToastShelf() {
   const { toasts, filterToasts } = React.useContext(ToastContext);
 
-  return (
+  return createPortal (
     <ol
       className={styles.wrapper}
       role="region"
@@ -27,7 +27,8 @@ function ToastShelf() {
           </Toast>
         </li>
       ))}
-    </ol>
+    </ol>,
+    document.getElementById("toast-root")
   );
 }
 
