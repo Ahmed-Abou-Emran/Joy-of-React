@@ -7,12 +7,7 @@ import "./styles.css";
 function HomeLayout({ children }) {
   return (
     <html lang="en">
-      <body>
-        <ToastProvider>
-          {children}
-          <ToastShelf />
-        </ToastProvider>
-      </body>
+      <body>{children}</body>
     </html>
   );
 }
