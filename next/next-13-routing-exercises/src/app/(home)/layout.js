@@ -1,11 +1,18 @@
-import React from 'react';
+import React from "react";
+import ToastProvider from "../../components/ToastProvider";
+import ToastShelf from "../../components/ToastShelf";
 
-import './styles.css';
+import "./styles.css";
 
 function HomeLayout({ children }) {
   return (
     <html lang="en">
-      <body>{children}</body>
+      <body>
+        <ToastProvider>
+          {children}
+          <ToastShelf />
+        </ToastProvider>
+      </body>
     </html>
   );
 }

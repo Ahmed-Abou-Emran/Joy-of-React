@@ -1,13 +1,11 @@
-import React from 'react';
+import React from "react";
 
-import './styles.css';
+import ToastProvider from "../../../components/ToastProvider";
+import ToastShelf from "../../../components/ToastShelf";
+import "./styles.css";
 
 function FlashMsgLayout({ children }) {
-  return (
-    <html lang="en">
-      <body>{children}</body>
-    </html>
-  );
+  return <>{children}</>;
 }
 
 export default FlashMsgLayout;
